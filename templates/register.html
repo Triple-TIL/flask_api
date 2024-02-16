@@ -21,8 +21,8 @@
                         <input type="text" class="form-control" id="userid" placeholder="아이디" name="userid" />
                     </div>
                     <div class="form-group">
-                        <label for="usernmae">사용자 이름</label>
-                        <input type="text" class="form-control" id="usernmae" placeholder="사용자 이름" name="username" />
+                        <label for="username">사용자 이름</label>
+                        <input type="text" class="form-control" id="username" placeholder="사용자 이름" name="username" />
                     </div>
                     <div class="form-group">
                         <label for="password">비밀번호</label>
@@ -32,10 +32,29 @@
                         <label for="re-password">비밀번호</label>
                         <input type="text" class="form-control" id="re-password" placeholder="비밀번호 확인" name="re-password" />
                     </div>
-                    <button type="submit" class="btn btn-primary">등록</button>
+                    <button type="button" class="btn btn-primary" onclick="register()">등록</button>
                 </form>
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        function register() {
+            $.ajax({
+                url: '/api/v1/users',
+                contentType: 'application/json',
+                method: 'POST',
+                data: JSON.stringify({
+                    userid: $('#userid').val(),
+                    username: $('#username').val(),
+                    password: $('#password').val(),
+                    're-password': $('#re-password').val()
+                })
+            }).done(function(res) {
+                alert('회원가입에 성공했습니다!');
+                window.location = '/';
+            });
+        }
+    </script>
 </body>
 </html>
